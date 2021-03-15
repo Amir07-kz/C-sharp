@@ -1,0 +1,112 @@
+using System;
+using System.Text;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
+using System.Diagnostics.CodeAnalysis;
+
+
+
+namespace AmirxanDzhunushodzhaev
+{
+    class Program
+    {
+        class Number<T>
+        {
+            public T VeryLongNumber { get; set; }
+            public T SimpleLongNumber { get; set; }
+        }
+        public class NumberAdd
+        {
+            public int n, n1;
+            public NumberAdd()
+            {
+                int n;
+                int n1;
+            }
+            public NumberAdd(int n1, int n2)
+            {
+                this.n = n1;
+                this.n1 = n2;
+            }
+            public NumberAdd add(NumberAdd number)
+            {
+                NumberAdd result = new NumberAdd(this.n + number.n, this.n1 + number.n1);
+                return result;
+            }
+        }
+        public class NumberSub
+        {
+            public int n, n1;
+            public NumberSub()
+            {
+                int n;
+                int n1;
+            }
+            public NumberSub(int n, int n1)
+            {
+                this.n = n;
+                this.n1 = n1;
+            }
+            public NumberSub sub(NumberSub number)
+            {
+                NumberSub result = new NumberSub(this.n - number.n, this.n1 - number.n1);
+                {
+                    if (n < n1)
+                    {
+                        throw new Exception("NotNaturalNumberException");
+                    }
+                    return result;
+                }
+            }
+        }
+        class NumberCompareTo : IComparable<NumberCompareTo>
+        {
+            public int n;
+
+
+
+            public NumberCompareTo(int n)
+            {
+                this.n = n;
+            }
+            public int num1 { get; set; }
+            public int CompareTo(NumberCompareTo n)
+            {
+                if (this.num1 > n.num1)
+                    return 1;
+                else
+                if (this.num1 < n.num1)
+                    return -1;
+                else
+                    return 0;
+            }
+        }
+        class Result
+        {
+            static void Main()
+            {
+                Number<string> VeryLongNumber = new Number<string>();
+                Number<long> SimpleLongNumber = new Number<long>();
+                var resultAdd = new NumberAdd(5, 3);
+                var resultSub = new NumberSub(4, 2);
+                NumberCompareTo p1 = new NumberCompareTo(2);
+                NumberCompareTo p2 = new NumberCompareTo(4);
+                int n ; 
+                int[] number = new int[1];
+                var sum = 0;
+                Console.WriteLine("Прибавить целое число n:");
+                Console.WriteLine(resultAdd.n + resultAdd.n1);
+                Console.WriteLine("Вычитание из нашего числа n:");
+                Console.WriteLine(resultSub.n - resultSub.n1);
+                Console.WriteLine("Сравнить число с n:");
+                Console.WriteLine(p1.n + p2.n);
+                foreach(int kol in number )
+                {
+                    sum += (resultAdd.n + resultAdd.n1 + resultSub.n + resultSub.n1 + p1.n + p2.n);
+                    Console.WriteLine("Cумма массива: {0}" , sum);
+                }
+            }
+        }
+    }
+}
