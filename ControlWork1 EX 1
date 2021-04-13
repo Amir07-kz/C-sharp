@@ -1,0 +1,92 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+ 
+
+namespace ControlWork1
+{
+    public class Program
+    {
+        public class StackOfStacks
+        {
+            public class Stacks { }
+
+ 
+
+            private int stacks;
+            private List<Stack<Stacks>> stack;
+
+ 
+
+            public StackOfStacks(int stacks)
+            {
+                this.stacks = stacks;
+                this.stack = new List<Stack<Stacks>>();
+            }
+
+ 
+
+            public void Push(Stacks v)
+            {
+                var last = stack.Count - 1;
+                if (last == -1 || stack[last].Count == stacks)
+                {
+                    var stack = new Stack<Stacks>();
+                    stack.Push(v);
+                    this.stack.Add(stack);
+                }
+            }
+
+ 
+
+            public Stacks Pop()
+            {
+                if (stack.Count == 0) return null;
+                var last = stack[stack.Count - 1];
+                var v = last.Pop();
+                if (last.Count == 0) stack.RemoveAt(stack.Count - 1);
+                return v;
+            }
+
+ 
+
+            private void MoveBottomPlate(Stack<Stacks> source, Stack<Stacks> target)
+            {
+                var temp = new Stack<Stacks>();
+                while (source.Count != 0)
+                {
+                    temp.Push(source.Pop());
+                }
+                target.Push(temp.Pop());
+                while (temp.Count != 0)
+                {
+                    source.Push(target.Pop());
+                }
+            }
+
+ 
+
+            public Stacks PopAt(int index)
+            {
+                if (index >= stack.Count) return null;
+                var stacks = stack[index];
+                var plate = stacks.Pop();
+                for (var i = index + 1; i < stack.Count; i++)
+                {
+                    MoveBottomPlate(stack[i], stack[i - 1]);
+                }
+                if (stack[stack.Count - 1].Count == 0)
+                {
+                    stack.RemoveAt(stack.Count - 1);
+                }
+                return plate;
+            }
+        }
+        public static void Main()
+        {
+            Console.WriteLine("");
+        }
+    }
+}
