@@ -1,0 +1,90 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace CONTROL_WORK_2
+{
+    class Stack
+    {
+        private int[] elements;
+        private int top;
+        private int max;
+        public Stack(int size)
+        {
+            elements = new int[size];
+            top = -1;
+            max = size;
+        }
+
+        public void push(int item)
+        {
+            if (top == max - 1)
+            {
+                Console.WriteLine("Переполнение стека");
+                return;
+            }
+            else
+            {
+                elements[++top] = item;
+            }
+        }
+
+        public int pop()
+        {
+            if (top == -1)
+            {
+                Console.WriteLine("Стек пустой");
+                return -1;
+            }
+            else
+            {
+                Console.WriteLine("{0} вышел из стека ", elements[top]);
+                return elements[top--];
+            }
+        }
+
+        public int rollback()
+        {
+            if (top == -1)
+            {
+                Console.WriteLine("Стек пустой");
+                return -1;
+            }
+            else
+            {
+                Console.WriteLine("{0} вышел из стека", elements[top]);
+                return elements[top];
+            }
+        }
+
+        public void forget()
+        {
+            if (top == -1)
+            {
+                Console.WriteLine("Стек пустой");
+                return;
+            }
+            else
+            {
+                for (int i = 0; i <= top; i++)
+                {
+                    Console.WriteLine("{0} нумеруем с начала", elements[i]);
+                }
+            }
+        }
+        class Program
+        {
+            static void Main()
+            {
+                Stack p = new Stack(5);
+
+                p.push(1);
+                p.push(2);
+                p.push(3);
+                p.forget();
+                p.pop();
+            }
+        }
+    }
+}
