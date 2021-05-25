@@ -1,0 +1,150 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace Multithreading
+{
+    public class Program
+    {
+        public static void WriteSecond()
+        {
+            Random rand = new Random();
+            int[,] arr1_2, arr2_2, arr3_2;
+
+            Console.WriteLine("Введите количество строк (для умножения):");
+            int num_str_2 = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Введите количество столбцов (для умножения):");
+            int num_col_2 = int.Parse(Console.ReadLine());
+
+            arr1_2 = new int[num_str_2, num_col_2];
+            arr2_2 = new int[num_str_2, num_col_2];
+            arr3_2 = new int[num_str_2, num_col_2];
+
+            for (int i = 0; i < arr1_2.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr1_2.GetLength(1); j++)
+                {
+                    arr1_2[i, j] = rand.Next(10);
+                    arr2_2[i, j] = rand.Next(10);
+                }
+            }
+            Console.WriteLine("Матрица 1(для сложения):\n");
+            for (int i = 0; i < arr1_2.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr1_2.GetLength(1); j++)
+                {
+                    Console.Write(arr1_2[i, j] + " ");
+                    Thread.Sleep(300);
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("Матрица 2(для сложения):\n");
+            for (int i = 0; i < arr1_2.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr2_2.GetLength(1); j++)
+                {
+                    Console.Write(arr2_2[i, j] + " ");
+                    Thread.Sleep(300);
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("Сложение матриц:\n");
+            for (int i = 0; i < arr1_2.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr1_2.GetLength(1); j++)
+                {
+                    Console.Write((arr1_2[i, j] + arr2_2[i, j]) + " ");
+                    arr3_2[i, j] = (arr1_2[i, j] + arr2_2[i, j]);
+                    Thread.Sleep(300);
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("Введите число для умножения матрицы на число(для умножения):");
+            int number = int.Parse(Console.ReadLine());
+            Console.WriteLine("");
+            Console.WriteLine("После умножения:");
+            for (int i = 0; i < arr1_2.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr1_2.GetLength(1); j++)
+                {
+                    Console.Write((arr3_2[i, j] * number) + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+        public static void Main()
+        {
+            Thread writeSecond = new Thread(WriteSecond);
+            writeSecond.Start();
+
+            Random rand = new Random();
+            int[,] arr1, arr2, arr3;
+
+            int num_str = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Введите количество строк (для сложения):");
+            int num = int.Parse(Console.ReadLine());
+
+            arr1 = new int[num_str, num];
+            arr2 = new int[num_str, num];
+            arr3 = new int[num_str, num];
+
+            for (int i = 0; i < arr1.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr1.GetLength(1); j++)
+                {
+                    arr1[i, j] = rand.Next(10);
+                    arr2[i, j] = rand.Next(10);
+                }
+            }
+            Console.WriteLine("Матрица 1(для умножения):\n");
+            for (int i = 0; i < arr1.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr1.GetLength(1); j++)
+                {
+                    Console.Write(arr1[i, j] + " ");
+                    Thread.Sleep(200);
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("Матрица 2(для умножения):\n");
+            for (int i = 0; i < arr1.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr2.GetLength(1); j++)
+                {
+                    Console.Write(arr2[i, j] + " ");
+                    Thread.Sleep(200);
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("Умножение матриц:\n");
+            for (int i = 0; i < arr1.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr1.GetLength(1); j++)
+                {
+                    Console.Write((arr1[i, j] + arr2[i, j]) + " ");
+                    arr3[i, j] = (arr1[i, j] + arr2[i, j]);
+                    Thread.Sleep(300);
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("Введите количесвто столбцов (для сложения)");
+            int number = int.Parse(Console.ReadLine());
+            Console.WriteLine("");
+            Console.WriteLine("После умножения:");
+            for (int i = 0; i < arr1.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr1.GetLength(1); j++)
+                {
+                    Console.Write((arr3[i, j] * number) + " ");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("Введите число для умножения матрицы на число(для сложения):");
+        }
+    }
+}
