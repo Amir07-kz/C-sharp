@@ -1,0 +1,41 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace Scobochka
+{
+    class Program
+    {
+        static bool Bracket_Checking(string s)
+        {
+            string str = "[{(]})";
+            Stack<char> a = new Stack<char>();
+
+            foreach (var x in s)
+            {
+                int b = str.IndexOf(x);
+
+                if (b >= 0 && b <= 2)
+                    a.Push(x);
+
+                if (b > 2)
+                {
+                    if (a.Count == 0 || a.Pop() != str[b - 3])
+                        return false;
+                }
+            }
+            if (a.Count != 0)
+                return false;
+
+            return true;
+        }
+        static void Main()
+        {
+            string s = Console.ReadLine();
+            Console.WriteLine(Bracket_Checking(s) ? "Правильно" : "Не правильно");
+        }
+    }
+}
